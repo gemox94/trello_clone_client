@@ -1,12 +1,17 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
+import authActions from '../../actions/authorization';
 import AppBanner from '../AppBanner/AppBanner';
 import RegexVal from '../../regex';
+import Constants from '../../constants';
 
 const renderField = ({ input, meta, label, type }) => (
-    <div className="form-group">
+    <div className="col">
         <label>{label}</label>
         {/* <pre>{JSON.stringify(meta, 0, 2)}</pre> */}
         <input { ...input } type={type} className="form-control"/>
@@ -17,10 +22,14 @@ const renderField = ({ input, meta, label, type }) => (
 
 const validateForm = values => {
     const errors = {};
-    const { name, email, password } = values;
+    const { name, last_name, email, password } = values;
 
     if (!name) {
         errors.name = 'Required!'
+    }
+
+    if (!last_name) {
+        errors.last_name = 'Required!';
     }
 
     if (!email) {
@@ -48,11 +57,18 @@ const SignUpForm = reduxForm({ form: 'signup', validate: validateForm})(props =>
     return (
         <form onSubmit={handleSubmit}>
         
-            <Field component={renderField} name="name" label="Name" type="text"/>
+            <div className="form-row mb-3">
+                <Field component={renderField} name="name" label="Name" type="text"/>
+                <Field component={renderField} name="last_name" label="Last Name" type="text"/>
+            </div>
 
-            <Field component={renderField} name="email" label="Email" type="email"/>
+            <div className="form-row mb-3">
+                <Field component={renderField} name="email" label="Email" type="email"/>
+            </div>
 
-            <Field component={renderField} name="password" label="Password" type="password"/>
+            <div className="form-row mb-3">
+                <Field component={renderField} name="password" label="Password" type="password"/>
+            </div>
 
             <div className="form-group text-right">
 
@@ -61,17 +77,25 @@ const SignUpForm = reduxForm({ form: 'signup', validate: validateForm})(props =>
                 </NavLink>
 
                 <button className="btn btn-dark" type="submit" disabled={!valid}>
-                    SignUp
+                    Sign Up
                 </button>
             </div>
         </form>
     );
 });
 
-const SignUp = () => {
+const SignUp = props => {
 
     const handleSubmit = values => { 
         console.log(values);
+        axios.post(`${Constants.API_URL}/signup`, values)
+            .then(res => {
+                console.log(res);
+                props.createdUserAccount();
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     return (
@@ -88,4 +112,13 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+const mapDispatchToProps = dispatch => {
+
+    const { createdUserAccount } = authActions.creators;
+
+    return bindActionCreators({
+        createdUserAccount
+    }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(SignUp);
