@@ -1,35 +1,41 @@
 import React from 'react';
-import Login from '../Login/Login';
-import { Route, Redirect, Link, NavLink, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Route, Redirect } from 'react-router-dom';
 
-const auth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true;
-        setTimeout(cb, 100); // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false;
-        setTimeout(cb, 100);
-    }
+// Actions
+import authActions from '../../actions/authorization';
+
+
+const PrivateRoute = ({ component: Component, getAuthenticated, ...rest }) => {
+
+    const { isAuthenticated } = getAuthenticated();
+
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                isAuthenticated ? (
+                    <Component {...props} />
+                ) : (
+                    <Redirect
+                        to={{
+                            pathname: '/login',
+                            state: { from: props.location }
+                        }}
+                    />
+                )
+            }
+        />
+    );
 };
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-    <Route
-        {...rest}
-        render={props =>
-            auth.isAuthenticated ? (
-                <Component {...props} />
-            ) : (
-                <Redirect
-                    to={{
-                        pathname: '/login',
-                        state: { from: props.location }
-                    }}
-                />
-            )
-        }
-    />
-);
+const mapDispatchToProps = (dispatch) => {
+    const { getAuthenticated } = authActions.creators;
 
-export default PrivateRoute;
+    return bindActionCreators({
+        getAuthenticated,
+    }, dispatch);
+};
+
+export default connect(null, mapDispatchToProps)(PrivateRoute);
