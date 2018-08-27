@@ -92,6 +92,7 @@ const SignUp = props => {
             .then(res => {
                 console.log(res);
                 props.createdUserAccount();
+
             })
             .catch(err => {
                 console.error(err);
@@ -114,10 +115,11 @@ const SignUp = props => {
 
 const mapDispatchToProps = dispatch => {
 
-    const { createdUserAccount } = authActions.creators;
+    const { createdUserAccount, setAuthenticated } = authActions.creators;
 
     return bindActionCreators({
-        createdUserAccount
+        createdUserAccount,
+        setAuthenticated,
     }, dispatch);
 };
 
