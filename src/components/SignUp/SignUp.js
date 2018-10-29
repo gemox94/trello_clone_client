@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import authActions from '../../actions/authorization';
@@ -50,7 +50,7 @@ const validateForm = values => {
 
 const SignUpForm = reduxForm({ form: 'signup', validate: validateForm})(props => {
 
-    const { handleSubmit, valid } = props;
+    const { handleSubmit, valid, loading } = props;
 
     console.log('THE SIGNUP FORM props', props)
 
@@ -76,7 +76,7 @@ const SignUpForm = reduxForm({ form: 'signup', validate: validateForm})(props =>
                     Already an account?
                 </NavLink>
 
-                <button className="btn btn-dark" type="submit" disabled={!valid}>
+                <button className="btn btn-dark" type="submit" disabled={!valid || loading}>
                     Sign Up
                 </button>
             </div>
@@ -84,34 +84,46 @@ const SignUpForm = reduxForm({ form: 'signup', validate: validateForm})(props =>
     );
 });
 
-const SignUp = props => {
+class SignUp extends Component {
 
-    const handleSubmit = values => { 
+    constructor(props) {
+        super(props);
+        this.state = { onLoadingRes: false };
+    }
+
+    handleSubmit(values) { 
         console.log(values);
+        this.setState({ onLoadingRes: true });
         axios.post(`${Constants.API_URL}/signup`, values)
             .then(res => {
                 console.log(res);
-                props.createdUserAccount();
-
+                this.props.createdUserAccount();
+                this.props.setAuthenticated({ user: res.data.user || null });
+                this.setState({ onLoadingRes: false });
+                this.props.history.push('/dashboard');
             })
             .catch(err => {
-                console.error(err);
+                console.log(err.response);
+                this.setState({ onLoadingRes: false });
             });
     };
 
-    return (
-        <div> 
-            <AppBanner />
-    
-            <div className="row">
-                <div className="col-sm-12 col-md-6 offset-md-3">
-                    <SignUpForm onSubmit={handleSubmit} />  
+    render() {
+        return (
+            <div> 
+                <AppBanner />
+        
+                <div className="row">
+                    <div className="col-sm-12 col-md-6 offset-md-3">
+                        <SignUpForm onSubmit={(values) => this.handleSubmit(values)} loading={this.state.onLoadingRes}/>  
+                    </div>
                 </div>
+    
             </div>
+        );
+    }
 
-        </div>
-    );
-};
+}
 
 const mapDispatchToProps = dispatch => {
 
@@ -123,4 +135,36 @@ const mapDispatchToProps = dispatch => {
     }, dispatch);
 };
 
-export default connect(null, mapDispatchToProps)(SignUp);
+// const SignUp = props => {
+
+//     const handleSubmit = values => { 
+//         console.log(values);
+//         axios.post(`${Constants.API_URL}/signup`, values)
+//             .then(res => {
+//                 console.log(res);
+//                 props.createdUserAccount();
+//                 props.setAuthenticated({ user: res });
+//                 props.history.push('/dashboard');
+                
+//             })
+//             .catch(err => {
+//                 console.log(err.response);
+//             });
+//     };
+
+//     return (
+//         <div> 
+//             <AppBanner />
+    
+//             <div className="row">
+//                 <div className="col-sm-12 col-md-6 offset-md-3">
+//                     <SignUpForm onSubmit={handleSubmit} />  
+//                 </div>
+//             </div>
+
+//         </div>
+//     );
+// };
+
+
+export default connect(null, mapDispatchToProps)(withRouter(SignUp));

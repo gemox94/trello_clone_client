@@ -7,9 +7,11 @@ import { Route, Redirect } from 'react-router-dom';
 import authActions from '../../actions/authorization';
 
 
-const PrivateRoute = ({ component: Component, getAuthenticated, ...rest }) => {
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
 
-    const { isAuthenticated } = getAuthenticated();
+    // const { payload } = getAuthenticated();
+
+    console.log(isAuthenticated);
 
     return (
         <Route
@@ -30,12 +32,22 @@ const PrivateRoute = ({ component: Component, getAuthenticated, ...rest }) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => {
-    const { getAuthenticated } = authActions.creators;
+const mapStateToProps = (state) => {
 
-    return bindActionCreators({
-        getAuthenticated,
-    }, dispatch);
+    const { isAuthenticated } = state.auth;
+
+    return {
+        isAuthenticated,
+    };
+
 };
 
-export default connect(null, mapDispatchToProps)(PrivateRoute);
+// const mapDispatchToProps = (dispatch) => {
+//     const { getAuthenticated } = authActions.creators;
+
+//     return bindActionCreators({
+//         getAuthenticated,
+//     }, dispatch);
+// };
+
+export default connect(mapStateToProps)(PrivateRoute);
