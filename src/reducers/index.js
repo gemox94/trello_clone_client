@@ -18,6 +18,14 @@ export default combineReducers({
                 default:
                     return state;
             }
+        },
+        login: (state, action) => {
+            switch (action.type) {
+                case CREATED_USER_ACCOUNT:
+                    return undefined;
+                default: 
+                    return state;
+            }
         }
     }),
 });

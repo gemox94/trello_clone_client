@@ -135,36 +135,4 @@ const mapDispatchToProps = dispatch => {
     }, dispatch);
 };
 
-// const SignUp = props => {
-
-//     const handleSubmit = values => { 
-//         console.log(values);
-//         axios.post(`${Constants.API_URL}/signup`, values)
-//             .then(res => {
-//                 console.log(res);
-//                 props.createdUserAccount();
-//                 props.setAuthenticated({ user: res });
-//                 props.history.push('/dashboard');
-                
-//             })
-//             .catch(err => {
-//                 console.log(err.response);
-//             });
-//     };
-
-//     return (
-//         <div> 
-//             <AppBanner />
-    
-//             <div className="row">
-//                 <div className="col-sm-12 col-md-6 offset-md-3">
-//                     <SignUpForm onSubmit={handleSubmit} />  
-//                 </div>
-//             </div>
-
-//         </div>
-//     );
-// };
-
-
 export default connect(null, mapDispatchToProps)(withRouter(SignUp));
