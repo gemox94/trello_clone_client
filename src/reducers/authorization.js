@@ -9,14 +9,10 @@ const authReducer = (state = initialState, action) => {
     switch (type) {
 
         case authActions.types.SET_AUTHENTICATED: {
-            console.log(type);
-            console.log(payload);
             const newState = { ...state };
-            const { user } = payload;
-            newState['isAuthenticated'] = true;
-            newState['user'] = user;
-            localStorage.setItem('user', JSON.stringify(newState));
-            console.log(newState);
+            const { auth } = payload;
+            newState['auth'] = auth;
+            localStorage.setItem('auth', JSON.stringify(newState));
             return newState;
         }
 

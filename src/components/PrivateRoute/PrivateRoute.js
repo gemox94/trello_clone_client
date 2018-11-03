@@ -7,17 +7,17 @@ import { Route, Redirect } from 'react-router-dom';
 import authActions from '../../actions/authorization';
 
 
-const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
+const PrivateRoute = ({ component: Component, auth, ...rest }) => {
 
     // const { payload } = getAuthenticated();
 
-    console.log(isAuthenticated);
+    console.log(auth);
 
     return (
         <Route
             {...rest}
             render={props =>
-                isAuthenticated ? (
+                auth ? (
                     <Component {...props} />
                 ) : (
                     <Redirect
@@ -34,10 +34,10 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
 
 const mapStateToProps = (state) => {
 
-    const { isAuthenticated } = state.auth;
+    const { auth } = state.auth;
 
     return {
-        isAuthenticated,
+        auth,
     };
 
 };
