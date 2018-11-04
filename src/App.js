@@ -19,6 +19,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 // Actions
 import authActions from './actions/authorization';
 
+import { GlobalStyle } from './App.styled';
+
 class App extends Component {
     
     constructor(props) {
@@ -34,22 +36,26 @@ class App extends Component {
     render() {
         return (
 
-            <Router>
+            <div>
+                <GlobalStyle />
 
-                <div className="App container">
-                    
-                    <Switch>
-                        <Route exact path='/login' component={Login}/>
-                        <Route exact path="/signup" component={SignUp} />
-                        <PrivateRoute exact path='/dashboard' component={Dashboard}/>
-                        <Redirect to={{
-                            pathname: "/login",
-                            state: { from: 'NOT FOUND PAGE' },
-                        }} />
-                    </Switch>
+                <Router>
 
-                </div>
-            </Router>
+                    <div className="App">
+                        
+                        <Switch>
+                            <Route exact path='/login' component={Login}/>
+                            <Route exact path="/signup" component={SignUp} />
+                            <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+                            <Redirect to={{
+                                pathname: "/login",
+                                state: { from: 'NOT FOUND PAGE' },
+                            }} />
+                        </Switch>
+
+                    </div>
+                </Router>
+            </div>
         );
     }
 }
