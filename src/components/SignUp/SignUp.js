@@ -98,7 +98,7 @@ class SignUp extends Component {
             .then(res => {
                 console.log(res);
                 this.props.createdUserAccount();
-                this.props.setAuthenticated({ auth: res.data.user || null });
+                this.props.setAuthenticated({ auth: res.data.auth || null });
                 this.setState({ onLoadingRes: false });
                 this.props.history.push('/dashboard');
             })

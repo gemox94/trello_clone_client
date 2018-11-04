@@ -85,7 +85,7 @@ class Login extends Component {
         axios.post(`${Constants.API_URL}/login`, values)
             .then(res => {
                 console.log(res);
-                this.props.setAuthenticated({ user: res.data.user || null });
+                this.props.setAuthenticated({ auth: res.data.auth || null });
                 this.setState({ onLoadingRes: false });
                 this.props.history.push('/dashboard');
             })

@@ -1,6 +1,6 @@
 import authActions from '../actions/authorization';
 
-const initialState = {};
+const initialState = { auth: null };
 
 const authReducer = (state = initialState, action) => {
 
@@ -12,7 +12,7 @@ const authReducer = (state = initialState, action) => {
             const newState = { ...state };
             const { auth } = payload;
             newState['auth'] = auth;
-            localStorage.setItem('auth', JSON.stringify(newState));
+            localStorage.setItem('auth', auth);
             return newState;
         }
 
