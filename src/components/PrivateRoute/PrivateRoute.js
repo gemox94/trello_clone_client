@@ -11,7 +11,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
 
     // const { payload } = getAuthenticated();
 
-    console.log(auth);
+    // console.log(auth);
 
     return (
         <Route

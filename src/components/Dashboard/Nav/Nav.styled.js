@@ -10,6 +10,12 @@ const NavRow = styled.div`
     }
 `;
 
+const NavLink = styled.a`
+    cursor: pointer;
+    color: #fff !important;
+`;
+
 export {
     NavRow,
+    NavLink,
 };

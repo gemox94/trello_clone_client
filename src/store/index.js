@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from '../reducers';
+import logger from 'redux-logger';
 // import rootSaga  from '../sagas';
 // import customMiddleware from '../middleware';
 
@@ -8,7 +9,9 @@ import rootReducer from '../reducers';
 
 const initialState = {};
 const enhancers = [];
-const middleware = [];
+const middleware = [
+    // logger
+];
 
 const composedEnhancers = compose(
     applyMiddleware(...middleware),
