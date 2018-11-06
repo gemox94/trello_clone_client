@@ -12,7 +12,7 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = { showBoards: false };
-        this.toggleShowBoards = this.toggleShowBoards.bind(this);
+        // this.toggleShowBoards = this.toggleShowBoards.bind(this);
     }
 
     toggleShowBoards() {
@@ -28,7 +28,7 @@ class Dashboard extends Component {
                     <div className="row">
                         <div className="col">
     
-                            <button className="btn btn-outline-primary" onClick={this.toggleShowBoards}>
+                            <button className="btn btn-outline-primary" onClick={() => this.toggleShowBoards()}>
                                 Show Boards
                             </button>
     
