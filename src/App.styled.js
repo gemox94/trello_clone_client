@@ -3,7 +3,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Roboto');
     @font-face {
-    font-family: 'Roboto', sans-serif;
+        font-family: 'Roboto', sans-serif;
+        src: url('https://fonts.googleapis.com/css?family=Roboto');
     }
     * {
         font-family: 'Roboto', sans-serif;

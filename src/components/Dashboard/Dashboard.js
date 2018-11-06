@@ -1,83 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // Inner components
 import Nav from './Nav/Nav';
 
-const Dashboard = () => {
-    return (
-        <div>
-            <Nav />
-            <div className="container-fluid mt-5">
-                <div className="row">
-                    <div className="col">
+// Components
+import Boards from '../Boards/Boards';
+import Projects from '../Projects/Projects';
 
-                        <h1 className="display-4">Boards</h1>
+class Dashboard extends Component {
 
-                        <hr/>
+    constructor(props) {
+        super(props);
+        this.state = { showBoards: false };
+        this.toggleShowBoards = this.toggleShowBoards.bind(this);
+    }
 
-                        <div className="card-columns">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
+    toggleShowBoards() {
+        console.log('something');
+        this.setState({ showBoards: !this.state.showBoards });
+    }
 
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
-
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">Card title</h5>
-                                    <p className="card-text">This is another card with title and supporting text below. This card has some additional content to make it slightly taller overall.</p>
-                                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
-                                </div>
-                            </div>
+    render() {
+        return (
+            <div>
+                <Nav />
+                <div className="container-fluid mt-5">
+                    <div className="row">
+                        <div className="col">
+    
+                            <button className="btn btn-outline-primary" onClick={this.toggleShowBoards}>
+                                Show Boards
+                            </button>
+    
+                            {this.state.showBoards ? <Boards /> : <Projects />}
+    
                         </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 export default Dashboard;
