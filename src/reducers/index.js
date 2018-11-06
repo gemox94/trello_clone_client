@@ -1,15 +1,16 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import authorizationActions from '../actions/authorization';
+import projectsActions from '../actions/projects';
 
 import auth from './authorization'
-// import transactions from './transactions';
-// import transactionModal from './transactionModal';
+import projects from './projects';
 
 const { CREATED_USER_ACCOUNT } = authorizationActions.types;
 
 export default combineReducers({
     auth,
+    projects,
     form: formReducer.plugin({
         signup: (state, action) => {
             switch(action.type) {

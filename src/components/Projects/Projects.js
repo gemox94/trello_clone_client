@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Components
 import Card from '../Card/Card';
 
-const Projects = () => {
+const Projects = (props) => {
+    
+    console.log(props)
+
     return (
         <div>
             <h1 className="display-4">Projects</h1>
@@ -19,4 +23,12 @@ const Projects = () => {
     );
 };
 
-export default Projects;
+const mapStateToProps = (state) => {
+    const { projects } = state;
+
+    return {
+        projects
+    };
+};
+
+export default connect(mapStateToProps)(Projects);
