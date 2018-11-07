@@ -46,7 +46,7 @@ class App extends Component {
                         <Switch>
                             <Route exact path='/login' component={Login}/>
                             <Route exact path="/signup" component={SignUp} />
-                            <PrivateRoute exact path='/dashboard' component={Dashboard}/>
+                            <PrivateRoute path='/dashboard' component={Dashboard}/>
                             <Redirect to={{
                                 pathname: "/login",
                                 state: { from: 'NOT FOUND PAGE' },

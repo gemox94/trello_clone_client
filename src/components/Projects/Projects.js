@@ -6,8 +6,6 @@ import Card from '../Card/Card';
 
 const Projects = (props) => {
     
-    console.log(props)
-
     return (
         <div>
             <h1 className="display-4">Projects</h1>

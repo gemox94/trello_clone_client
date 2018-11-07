@@ -44,8 +44,6 @@ const LoginForm = reduxForm({ form: 'login', validate: validateForm})(props => {
 
     const { handleSubmit, valid, loading } = props;
 
-    console.log('THE LOGIN FORM props', props);
-
     return (
         <form onSubmit={handleSubmit}>
 
@@ -80,11 +78,9 @@ class Login extends Component {
     }
 
     handleSubmit(values) { 
-        console.log(values);
         this.setState({ onLoadingRes: true });
         axios.post(`${Constants.API_URL}/login`, values)
             .then(res => {
-                console.log(res);
                 this.props.setAuthenticated({ auth: res.data.auth || null });
                 this.setState({ onLoadingRes: false });
                 this.props.history.push('/dashboard');
