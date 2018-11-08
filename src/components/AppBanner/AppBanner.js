@@ -1,5 +1,5 @@
 import React from 'react';
-import * as AppLogoImage from '../../images/logo.png';
+// import * as AppLogoImage from '../../images/logo.png';
 
 const AppBanner = () => (
     <div className="text-center my-4">

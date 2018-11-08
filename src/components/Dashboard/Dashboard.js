@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import {
-    Route,
     Redirect,
     Switch,
-    BrowserRouter as Router
+    // BrowserRouter as Router
 } from 'react-router-dom';
 
 // Inner components
-import Nav from './Nav/Nav';
+// import Nav from './Nav/Nav';
 
 // Components
-import Boards from '../Boards/Boards';
+// import Boards from '../Boards/Boards';
 import Projects from '../Projects/Projects';
 import PrivateRoute from '../PrivateRoute/PrivateRoute';
 
