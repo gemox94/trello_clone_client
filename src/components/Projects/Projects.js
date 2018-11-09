@@ -1,42 +1,59 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 // Components
 import Card from '../Card/Card';
+import { Navbar, NavItem } from '../Navbar/Navbar';
 
-const Projects = (props) => {
+class Projects extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = { toggleCreateProject: false };
+        this.toggleCreateProjectModal = this.toggleCreateProjectModal.bind(this);
+    }
+
+    toggleCreateProjectModal() {
+        this.setState((state, props) => {
+            return {toggleCreateProject: !state.toggleCreateProject};
+        });
+    }
     
-    return (
-        <div>
-            <div className="row">
-                <div className="col">
-                    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                        <a className="navbar-brand">Projects</a>
-                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
 
-                        <div className="collapse navbar-collapse">
-                            <ul className="navbar-nav ml-auto">
-                                <li className="nav-item">
-                                    <a className="nav-link btn btn-sm btn-primary text-white">Create</a>
-                                </li>
-                            </ul>
-                        </div>
-
-                    </nav>
+    render() {
+        return (
+            <div>
+                <div className="row">
+                    <div className="col">
+                        <Navbar title="Projects">
+                            <NavItem action="Create" onClick={() => this.toggleCreateProjectModal()}/>
+                        </Navbar>
+                    </div>
                 </div>
-            </div>
-            <hr/>
+                <hr/>
+    
+                <div className="card-columns">
+                    <Card overlayImg={true}/>
+                    <Card />
+                    <Card />
+                    <Card overlayImg={true}/>
+                </div>
 
-            <div className="card-columns">
-                <Card overlayImg={true}/>
-                <Card />
-                <Card />
-                <Card overlayImg={true}/>
+                <Modal isOpen={this.state.toggleCreateProject} toggle={this.toggleCreateProjectModal}>
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Something Interesting
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggleCreateProjectModal}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggleCreateProjectModal}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+
             </div>
-        </div>
-    );
+        );
+    }
 };
 
 const mapStateToProps = (state) => {
